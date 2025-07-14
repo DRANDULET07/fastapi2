@@ -23,6 +23,9 @@ app.add_middleware(
 class PostBase(BaseModel):
     slug: str
     title: str
+    author: str
+    date: str
+    category: str
 
 class PostFull(PostBase):
     content: str
@@ -32,23 +35,32 @@ fake_posts_db: List[PostFull] = [
     PostFull(
         slug="first-post",
         title="Мой первый пост",
-        content="Это содержимое моего первого поста. Здесь много интересного текста о веб-разработке!"
+        content="Это содержимое моего первого поста. Здесь много интересного текста о веб-разработке!",
+        author="Иван Иванов",
+        date="2024-06-01",
+        category="Веб-разработка"
     ),
     PostFull(
         slug="fastapi-and-nextjs",
         title="FastAPI + Next.js = ❤️",
-        content="Сочетание FastAPI для бэкенда и Next.js для фронтенда - это мощный и современный стек. Асинхронность FastAPI и рендеринг Next.js творят чудеса."
+        content="Сочетание FastAPI для бэкенда и Next.js для фронтенда - это мощный и современный стек. Асинхронность FastAPI и рендеринг Next.js творят чудеса.",
+        author="Анна Смирнова",
+        date="2024-06-02",
+        category="Технологии"
     ),
     PostFull(
         slug="why-i-love-python",
         title="Почему я люблю Python",
-        content="Python - это язык с простым синтаксисом и огромной экосистемой. Он отлично подходит для бэкенда, анализа данных и многого другого."
+        content="Python - это язык с простым синтаксисом и огромной экосистемой. Он отлично подходит для бэкенда, анализа данных и многого другого.",
+        author="Петр Петров",
+        date="2024-06-03",
+        category="Программирование"
     )
 ]
 
 # --- Эндпоинты API ---
 
-# Отдает краткий список всех постов (slug и title)
+# Отдает краткий список всех постов (slug, title, author, date, category)
 @app.get("/api/posts", response_model=List[PostBase])
 async def get_all_posts():
     return fake_posts_db
